@@ -1,39 +1,53 @@
-# 社交媒体图片转换工作台
+# Social Media Image Studio
 
-一个独立的小项目，用来把一张或多张原图快速适配成抖音、小红书、Instagram 常用发图尺寸。
+![Project Cover](./assets/project-cover.svg)
 
-## 现在支持
+一个面向内容团队与个人创作者的轻量图片工作台，用于把原图快速适配到小红书、抖音、Instagram 等常用发图尺寸。项目运行在浏览器中，强调直接、清晰、低学习成本的裁切与导出体验。
 
-- 批量导入多张图片，并在队列里逐张切换编辑
-- HEIC / HEIF 导入时自动转成兼容格式，避免预览区空白
-- 可勾选多张图片，把当前缩放一键同步到选中图片
-- 新增效果总览区，直接查看每张图在当前预设下的实际输出效果
-- 每张图片单独保存自己的裁切位置和缩放
-- `铺满裁切` 和 `完整留白` 两种适配方式
-- 拖拽构图、滚轮缩放
-- 导出 `JPG`、`PNG`、`WebP`
-- 一次勾选多个平台预设并批量导出
-- 一键打包全部图片和已选预设为 `ZIP`
-- 新增自定义平台尺寸模板，并自动保存到本地浏览器
+## Overview
 
-## 当前预设
+Social Media Image Studio is a browser-based image preparation tool for social publishing workflows. It focuses on fast ratio conversion, per-image crop persistence, reusable presets, and clean batch export without requiring a design tool.
 
-- 小红书：`1080 x 1440`、`1080 x 1080`、`1200 x 900`
-- 抖音：`1080 x 1440`、`1080 x 1920`
-- Instagram：`1080 x 1350`、`1080 x 1440`、`1080 x 1080`、`1080 x 1920`
+## Highlights
 
-## 启动
+- Multi-image queue with per-image crop and zoom state
+- HEIC and HEIF import handling to avoid blank preview failures
+- Fill and fit output modes for different publishing needs
+- Drag-to-position and wheel-to-zoom editing in the preview area
+- Grid overlays with adjustable color, opacity, and inset
+- Neutral film grain effect applied to both preview and export
+- Batch export to JPG, PNG, or WebP, with ZIP packaging support
+- Custom size templates stored in local browser storage
 
-如果本机有 Node.js：
+## Built-in Presets
+
+| Platform | Presets |
+| --- | --- |
+| Xiaohongshu | 1080 x 1440, 1080 x 1080, 1200 x 900, 1080 x 1920 |
+| Douyin | 1080 x 1440, 1080 x 1920, 1080 x 1080, 1920 x 1080 |
+| Instagram | 1080 x 1350, 1080 x 1440, 1080 x 1080, 1080 x 566, 1080 x 1920 |
+
+## Interface
+
+当前界面分为三块核心区域：
+
+- 左侧：上传、输出设置、模板预设
+- 中间：预览与裁切操作
+- 下方：效果总览，直接查看当前预设下的输出结果
+
+![App Preview](./assets/app-preview.png)
+
+## Getting Started
+
+### Requirements
+
+- Node.js 18 or later
+
+### Run locally
 
 ```bash
+npm install
 npm run dev
-```
-
-如果你想直接用我给你配好的本地启动器：
-
-```bash
-./start-local.command
 ```
 
 默认地址：
@@ -42,15 +56,40 @@ npm run dev
 http://127.0.0.1:8786
 ```
 
-## 项目结构
+如果希望直接双击启动，也可以使用：
+
+```bash
+./start-local.command
+```
+
+## Project Structure
 
 ```text
 .
+├── assets/
+│   ├── app-preview.png
+│   └── project-cover.svg
 ├── app.js
 ├── index.html
 ├── package.json
-├── scripts
+├── scripts/
 │   └── dev-server.mjs
 ├── start-local.command
 └── styles.css
 ```
+
+## Stack
+
+- Vanilla HTML, CSS, and JavaScript
+- Canvas-based preview and export pipeline
+- Local Node.js development server
+
+## Use Cases
+
+- Prepare one source image for multiple platform ratios
+- Keep repeated crop work consistent across a batch
+- Export social-ready assets without opening heavier design software
+
+## License
+
+MIT
