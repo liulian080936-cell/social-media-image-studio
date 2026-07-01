@@ -135,6 +135,7 @@ const STORAGE_KEY = "social-media-image-studio.custom-presets.v1";
 const PREVIEW_FRAME_CHROME = 72;
 const PREVIEW_FALLBACK_WIDTH = 820;
 const PREVIEW_FALLBACK_HEIGHT = 760;
+const DEFAULT_BACKGROUND_COLOR = "#f5f1ea";
 const IMPORTABLE_IMAGE_EXTENSIONS = new Set([
   "jpg",
   "jpeg",
@@ -153,6 +154,7 @@ const IMPORTABLE_IMAGE_EXTENSIONS = new Set([
 const fileInput = document.querySelector("#fileInput");
 const dropzone = document.querySelector("#dropzone");
 const pickImagesButton = document.querySelector("#pickImagesButton");
+const previewPanel = document.querySelector(".preview-panel");
 const previewFrame = document.querySelector("#previewFrame");
 const previewCanvas = document.querySelector("#previewCanvas");
 const previewEmpty = document.querySelector("#previewEmpty");
@@ -223,7 +225,7 @@ const state = {
   zoom: 1,
   panXNorm: 0,
   panYNorm: 0,
-  backgroundColor: "#f5f1ea",
+  backgroundColor: DEFAULT_BACKGROUND_COLOR,
   vintageNoise: 0,
   gridMode: "none",
   gridColor: "#ffffff",
@@ -393,6 +395,7 @@ function buildAssetFromImage(file, objectUrl, image, options = {}) {
     height: image.height,
     ratio: readableRatio(image.width, image.height),
     transform: defaultTransform(),
+    backgroundColor: state.backgroundColor,
     wasConverted: Boolean(options.wasConverted),
   };
 }
@@ -663,6 +666,34 @@ function defaultTransform() {
   };
 }
 
+function getAssetBackgroundColor(asset) {
+  return asset?.backgroundColor || state.backgroundColor || DEFAULT_BACKGROUND_COLOR;
+}
+
+function syncBackgroundColorControl() {
+  const backgroundColor = getAssetBackgroundColor(getActiveAsset());
+  state.backgroundColor = backgroundColor;
+  backgroundColorInput.value = backgroundColor;
+}
+
+function revealPreviewPanelIfNeeded() {
+  if (!previewPanel) {
+    return;
+  }
+
+  const rect = previewPanel.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+  if (rect.top >= 0 && rect.bottom <= viewportHeight) {
+    return;
+  }
+
+  previewPanel.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}
+
 function syncViewportFromActiveAsset() {
   const asset = getActiveAsset();
   const transform = asset?.transform ?? defaultTransform();
@@ -880,6 +911,7 @@ function setActiveAsset(assetId) {
 
   state.activeAssetId = assetId;
   syncViewportFromActiveAsset();
+  syncBackgroundColorControl();
   syncSourceMeta();
   buildSourceQueue();
   buildEffectGallery();
@@ -1175,7 +1207,7 @@ function drawVintageOverlay(context, width, height, asset, preset) {
 function renderAssetToCanvas(canvas, preset, asset) {
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = state.backgroundColor;
+  ctx.fillStyle = getAssetBackgroundColor(asset);
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   if (!asset) {
@@ -1309,6 +1341,7 @@ function buildEffectGallery() {
     card.append(header, canvasShell, meta);
     card.addEventListener("click", () => {
       setActiveAsset(asset.id);
+      revealPreviewPanelIfNeeded();
       setStatus(`已切换到 ${asset.fileName}，可继续查看和微调应用效果。`);
     });
 
@@ -1378,6 +1411,7 @@ async function importFiles(fileList) {
   state.assets.push(...loadedAssets);
   state.activeAssetId = loadedAssets[0].id;
   syncViewportFromActiveAsset();
+  syncBackgroundColorControl();
   syncSourceMeta();
   buildSourceQueue();
   buildEffectGallery();
@@ -1406,6 +1440,7 @@ function removeAsset(assetId) {
     syncViewportFromActiveAsset();
   }
 
+  syncBackgroundColorControl();
   syncSourceMeta();
   buildSourceQueue();
   buildEffectGallery();
@@ -1423,6 +1458,7 @@ function clearAssets() {
   state.zoom = 1;
   state.panXNorm = 0;
   state.panYNorm = 0;
+  backgroundColorInput.value = state.backgroundColor;
   syncSourceMeta();
   buildSourceQueue();
   buildEffectGallery();
@@ -1856,7 +1892,11 @@ gridInsetRange.addEventListener("input", (event) => {
 });
 
 backgroundColorInput.addEventListener("input", (event) => {
+  const activeAsset = getActiveAsset();
   state.backgroundColor = event.target.value;
+  if (activeAsset) {
+    activeAsset.backgroundColor = event.target.value;
+  }
   drawPreview();
   buildEffectGallery();
 });
@@ -2010,6 +2050,7 @@ buildSourceQueue();
 buildEffectGallery();
 syncSelectionMeta();
 syncEffectControls();
+syncBackgroundColorControl();
 updateQualityVisibility();
 updateButtonState();
 drawPreview();

@@ -114,142 +114,6 @@
               </div>
             </section>
 
-            <section class="panel controls-panel">
-              <div class="panel-heading">
-                <h2>3. 输出设置</h2>
-                <p>统一设置尺寸、效果和导出方式。</p>
-              </div>
-
-              <div class="control-group">
-                <label class="group-label" for="presetSelect">输出尺寸</label>
-                <select id="presetSelect">
-                  <optgroup label="小红书">
-                    <option value="xhs-portrait" selected>笔记竖版 · 1080 × 1440 · 3:4</option>
-                    <option value="xhs-square">笔记方图 · 1080 × 1080 · 1:1</option>
-                    <option value="xhs-landscape">笔记横版 · 1200 × 900 · 4:3</option>
-                    <option value="xhs-immersive">沉浸竖屏 · 1080 × 1920 · 9:16</option>
-                  </optgroup>
-                  <optgroup label="抖音">
-                    <option value="douyin-card">图文竖版 · 1080 × 1440 · 3:4</option>
-                    <option value="douyin-full">全屏竖版 · 1080 × 1920 · 9:16</option>
-                    <option value="douyin-square">方图备用 · 1080 × 1080 · 1:1</option>
-                    <option value="douyin-landscape">横版素材 · 1920 × 1080 · 16:9</option>
-                  </optgroup>
-                  <optgroup label="Instagram / Ins">
-                    <option value="ig-feed-safe">Feed 兼容档 · 1080 × 1350 · 4:5</option>
-                    <option value="ig-feed-34">Feed 直出档 · 1080 × 1440 · 3:4</option>
-                    <option value="ig-square">Feed 方图 · 1080 × 1080 · 1:1</option>
-                    <option value="ig-landscape">Feed 横图 · 1080 × 566 · 1.91:1</option>
-                    <option value="ig-story">Story / Reel · 1080 × 1920 · 9:16</option>
-                  </optgroup>
-                </select>
-                <div class="control-note" id="presetSelectMeta">1080 × 1440 · 最稳妥，适合封面和整组图文。</div>
-                <div class="preset-picker" id="presetPicker" aria-label="常用输出尺寸"></div>
-              </div>
-
-            <div class="control-group">
-              <span class="group-label">适配方式</span>
-              <div class="segmented">
-                <label>
-                  <input type="radio" name="fitMode" value="fill" checked />
-                  <span>铺满裁切</span>
-                </label>
-                <label>
-                  <input type="radio" name="fitMode" value="fit" />
-                  <span>完整留白</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="group-label" for="zoomRange">缩放</label>
-              <div class="range-row">
-                <input id="zoomRange" type="range" min="0.6" max="3" step="0.01" value="1" />
-                <strong id="zoomValue">100%</strong>
-              </div>
-              <div class="bulk-zoom-row">
-                  <span class="muted" id="bulkZoomHint">先勾选需要同步的图片</span>
-                  <button class="action-button action-button--quiet" id="applyZoomToSelectedButton" type="button" disabled>
-                    同步当前缩放
-                  </button>
-                </div>
-              </div>
-
-            <div class="control-group">
-              <span class="group-label">效果应用</span>
-              <div class="effect-control-stack">
-                <div class="effect-control-card">
-                  <div class="effect-control-heading">
-                    <strong>颗粒噪点</strong>
-                    <span>中性颗粒，不带暖调。</span>
-                  </div>
-                  <div class="range-row">
-                    <input id="vintageNoiseRange" type="range" min="0" max="1" step="0.01" value="0" />
-                    <strong id="vintageNoiseValue">0%</strong>
-                  </div>
-                </div>
-
-                <div class="effect-control-card">
-                  <div class="effect-control-heading">
-                    <strong>网格系统</strong>
-                    <span>支持颜色、透明度和边距。</span>
-                  </div>
-                  <select id="gridModeSelect">
-                    <option value="none">关闭</option>
-                    <option value="thirds">九宫格</option>
-                    <option value="editorial">12 列编辑网格</option>
-                  </select>
-                  <div class="grid-control-stack">
-                    <div class="color-row" id="gridColorGroup" hidden>
-                      <input id="gridColorInput" type="color" value="#ffffff" />
-                      <span class="muted">网格颜色</span>
-                    </div>
-                    <div class="range-row" id="gridOpacityGroup" hidden>
-                      <input id="gridOpacityRange" type="range" min="0.08" max="0.7" step="0.01" value="0.24" />
-                      <strong id="gridOpacityValue">24%</strong>
-                    </div>
-                    <div class="range-row" id="gridInsetGroup" hidden>
-                      <input id="gridInsetRange" type="range" min="0" max="0.18" step="0.005" value="0" />
-                      <strong id="gridInsetValue">0%</strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="control-note">效果会同步到预览和导出。</div>
-            </div>
-
-            <div class="control-group">
-              <label class="group-label" for="backgroundColor">留白底色</label>
-              <div class="color-row">
-                <input id="backgroundColor" type="color" value="#f5f1ea" />
-                <span class="muted">仅在“完整留白”模式生效</span>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="group-label" for="formatSelect">导出格式</label>
-              <select id="formatSelect">
-                <option value="image/jpeg">JPG</option>
-                <option value="image/png">PNG</option>
-                <option value="image/webp">WebP</option>
-              </select>
-            </div>
-
-            <div class="control-group" id="qualityGroup">
-              <label class="group-label" for="qualityRange">压缩质量</label>
-              <div class="range-row">
-                <input id="qualityRange" type="range" min="0.5" max="1" step="0.01" value="0.92" />
-                <strong id="qualityValue">92%</strong>
-              </div>
-            </div>
-
-              <div class="current-preset">
-                <span class="meta-label">当前预设</span>
-                <strong id="activePresetName">小红书 · 笔记竖版</strong>
-                <span id="activePresetMeta">1080 × 1440 · 3:4</span>
-              </div>
-            </section>
-
             <section class="panel template-panel">
               <div class="panel-heading">
                 <h2>5. 模板预设</h2>
@@ -383,6 +247,142 @@
               </div>
 
               <div class="status-line" id="statusLine">等待导入图片</div>
+            </section>
+
+            <section class="panel controls-panel">
+              <div class="panel-heading">
+                <h2>3. 输出设置</h2>
+                <p>统一设置尺寸、效果和导出方式。</p>
+              </div>
+
+              <div class="control-group">
+                <label class="group-label" for="presetSelect">输出尺寸</label>
+                <select id="presetSelect">
+                  <optgroup label="小红书">
+                    <option value="xhs-portrait" selected>笔记竖版 · 1080 × 1440 · 3:4</option>
+                    <option value="xhs-square">笔记方图 · 1080 × 1080 · 1:1</option>
+                    <option value="xhs-landscape">笔记横版 · 1200 × 900 · 4:3</option>
+                    <option value="xhs-immersive">沉浸竖屏 · 1080 × 1920 · 9:16</option>
+                  </optgroup>
+                  <optgroup label="抖音">
+                    <option value="douyin-card">图文竖版 · 1080 × 1440 · 3:4</option>
+                    <option value="douyin-full">全屏竖版 · 1080 × 1920 · 9:16</option>
+                    <option value="douyin-square">方图备用 · 1080 × 1080 · 1:1</option>
+                    <option value="douyin-landscape">横版素材 · 1920 × 1080 · 16:9</option>
+                  </optgroup>
+                  <optgroup label="Instagram / Ins">
+                    <option value="ig-feed-safe">Feed 兼容档 · 1080 × 1350 · 4:5</option>
+                    <option value="ig-feed-34">Feed 直出档 · 1080 × 1440 · 3:4</option>
+                    <option value="ig-square">Feed 方图 · 1080 × 1080 · 1:1</option>
+                    <option value="ig-landscape">Feed 横图 · 1080 × 566 · 1.91:1</option>
+                    <option value="ig-story">Story / Reel · 1080 × 1920 · 9:16</option>
+                  </optgroup>
+                </select>
+                <div class="control-note" id="presetSelectMeta">1080 × 1440 · 最稳妥，适合封面和整组图文。</div>
+                <div class="preset-picker" id="presetPicker" aria-label="常用输出尺寸"></div>
+              </div>
+
+              <div class="control-group">
+                <span class="group-label">适配方式</span>
+                <div class="segmented">
+                  <label>
+                    <input type="radio" name="fitMode" value="fill" checked />
+                    <span>铺满裁切</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="fitMode" value="fit" />
+                    <span>完整留白</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="group-label" for="zoomRange">缩放</label>
+                <div class="range-row">
+                  <input id="zoomRange" type="range" min="0.6" max="3" step="0.01" value="1" />
+                  <strong id="zoomValue">100%</strong>
+                </div>
+                <div class="bulk-zoom-row">
+                  <span class="muted" id="bulkZoomHint">先勾选需要同步的图片</span>
+                  <button class="action-button action-button--quiet" id="applyZoomToSelectedButton" type="button" disabled>
+                    同步当前缩放
+                  </button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <span class="group-label">效果应用</span>
+                <div class="effect-control-stack">
+                  <div class="effect-control-card">
+                    <div class="effect-control-heading">
+                      <strong>颗粒噪点</strong>
+                      <span>中性颗粒，不带暖调。</span>
+                    </div>
+                    <div class="range-row">
+                      <input id="vintageNoiseRange" type="range" min="0" max="1" step="0.01" value="0" />
+                      <strong id="vintageNoiseValue">0%</strong>
+                    </div>
+                  </div>
+
+                  <div class="effect-control-card">
+                    <div class="effect-control-heading">
+                      <strong>网格系统</strong>
+                      <span>支持颜色、透明度和边距。</span>
+                    </div>
+                    <select id="gridModeSelect">
+                      <option value="none">关闭</option>
+                      <option value="thirds">九宫格</option>
+                      <option value="editorial">12 列编辑网格</option>
+                    </select>
+                    <div class="grid-control-stack">
+                      <div class="color-row" id="gridColorGroup" hidden>
+                        <input id="gridColorInput" type="color" value="#ffffff" />
+                        <span class="muted">网格颜色</span>
+                      </div>
+                      <div class="range-row" id="gridOpacityGroup" hidden>
+                        <input id="gridOpacityRange" type="range" min="0.08" max="0.7" step="0.01" value="0.24" />
+                        <strong id="gridOpacityValue">24%</strong>
+                      </div>
+                      <div class="range-row" id="gridInsetGroup" hidden>
+                        <input id="gridInsetRange" type="range" min="0" max="0.18" step="0.005" value="0" />
+                        <strong id="gridInsetValue">0%</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="control-note">效果会同步到预览和导出。</div>
+              </div>
+
+              <div class="control-group">
+                <label class="group-label" for="backgroundColor">留白底色</label>
+                <div class="color-row">
+                  <input id="backgroundColor" type="color" value="#f5f1ea" />
+                  <span class="muted">仅在“完整留白”模式生效</span>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="group-label" for="formatSelect">导出格式</label>
+                <select id="formatSelect">
+                  <option value="image/jpeg">JPG</option>
+                  <option value="image/png">PNG</option>
+                  <option value="image/webp">WebP</option>
+                </select>
+              </div>
+
+              <div class="control-group" id="qualityGroup">
+                <label class="group-label" for="qualityRange">压缩质量</label>
+                <div class="range-row">
+                  <input id="qualityRange" type="range" min="0.5" max="1" step="0.01" value="0.92" />
+                  <strong id="qualityValue">92%</strong>
+                </div>
+              </div>
+
+              <div class="current-preset">
+                <span class="meta-label">当前预设</span>
+                <strong id="activePresetName">小红书 · 笔记竖版</strong>
+                <span id="activePresetMeta">1080 × 1440 · 3:4</span>
+              </div>
             </section>
 
             <section class="panel effect-panel">
